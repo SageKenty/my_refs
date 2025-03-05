@@ -191,3 +191,97 @@ private: //非公開のアクセス指定子
 ```
 - 非公開となっているメンバ変数やメンバ関数にアクセスしようとするとコンパイルエラーになる。
 
+## 2.2.2 メンバー関数
+メンバー関数はそれ単体で使うことは不可能であるが、関連付けられたクラスのインスタンスと合わせて使うことができる
+
+**コード例**
+```cpp
+class class-name
+{
+    //メンバー関数宣言
+    return-type menber-function-name(parameters...);
+}
+
+//メンバー関数定義
+
+return-type class-name::menber-function-name(parameters...)
+{
+    function-body...
+}
+
+//インスタンスを使ったメンバー関数呼び出し
+instance.member-function-name(arguments...)
+
+//インスタンスへのポインタ経由でメンバ関数呼び出し
+pointer -> member-function-name(arguments...);
+```
+
+- メンバー関数の定義は関連付けられたクラスを指定する必要がある
+- 呼び出しではインスタンスから直接呼び出せる
+- 同じクラスのメンバー関数であれば非公開メンバー関数・変数などにも直接アクセスが可能
+
+## getterとsetter
+メンバ変数を`private`にし、直接アクセスを許可しないものの**getter**(取得用)や**setter**といったメンバ関数を通してのみ操作できるようにすることがある。
+
+```cpp
+class product
+{
+    int price; //単価
+
+public:
+    int get_price(); //単価のgetter
+    void set_price(int new_price); //単価のsetter
+}
+
+int product::get_price()
+{
+    return price;
+}
+
+void product::set_price()
+{
+    //Setterを使うと新しい値が不正な値でないかチェックができる
+    assert(new_price < 0)
+    price = new_price;
+}
+
+int main()
+{
+    product pen; //ペンに関するデータを持つ変数
+
+    //メンバ変数は非公開なのでsetterを使って値を格納
+    pen.set_price(100);
+
+    product* ptr = &pen //インスタンスへのポインタ
+    
+    //アロー演算子を使いgetterから値取得
+    std::cout << "単価" << ptr->get_price() << std::endl;
+} 
+
+```
+
+結果
+```
+単価:100
+```
+# 2.3 参照
+## 1.変数の別名
+変数に別名をつける機能
+構文
+```
+type-name& reference-name = variable-name;
+```
+- 初期化が必須
+- 参照の型は基本的に同じにしなければならない
+- `,`で区切られてそのまま定義した場合ただの変数定義となる
+## 2.参照とポインタの違い
+- 参照は変数の直接の別名となる
+- `*`を使わず直接アクセス可能
+- しかし初期化時に指定した変数以外への参照に変更することはできない
+
+## 3.const参照
+- const変数を参照する場合はconst参照を利用する必要がある
+- 
+
+
+
